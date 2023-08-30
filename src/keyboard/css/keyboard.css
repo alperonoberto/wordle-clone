@@ -1,0 +1,39 @@
+.keyboard {
+  display: grid;
+  place-content: center;
+  margin-top: 2rem;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+}
+
+.letter {
+  width: 1.5rem;
+  height: 1rem;
+  border-radius: 10px;
+  display: grid;
+  place-content: center;
+  padding: 1rem;
+  cursor: pointer;
+  background-color: #dce1ed;
+  text-transform: capitalize;
+  font-weight: 700;
+  color: #464a5e;
+}
+
+.letter:hover {
+    background-color: #bbbfc9;
+    transition: background-color .2s ease-in-out;
+}
+
+.letter:active {
+    background-color: #a3a6ad;
+    transition: background-color .1s ease-in-out;
+}
+
+.keyboard .row:last-child .letter:first-child,
+.keyboard .row:last-child .letter:last-child {
+  flex-grow: 1;
+}

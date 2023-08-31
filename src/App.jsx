@@ -1,29 +1,80 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import "./App.css";
-import Gameboard from "./gameboard/jsx/gameboard";
-import Keyboard from "./keyboard/jsx/keyboard";
+import Gameboard from "./components/gameboard/jsx/gameboard";
+import Keyboard from "./components/keyboard/jsx/keyboard";
+import { gameboard_state } from "./constants/gameboard_state";
+import { createContext } from "react";
+import { keyboard } from "./constants/qwerty";
+
+export const AppContext = createContext();
 
 function App() {
-  const [letters, setLetters] = useState([]);
+  const [gameboard, setGameboard] = useState(gameboard_state);
+  const [currAttempt, setCurrAttempt] = useState({ attempt: 0, letterPos: 0 });
+
+  const onSelectLetter = (keyVal) => {
+    if (currAttempt.letterPos > 4) return;
+    const newBoard = [...gameboard];
+    newBoard[currAttempt.attempt][currAttempt.letterPos] = keyVal;
+    setGameboard(newBoard);
+    setCurrAttempt({ ...currAttempt, letterPos: currAttempt.letterPos + 1 });
+  };
+
+  const onDelete = () => {
+    if (currAttempt.letterPos === 0) return;
+    const newBoard = [...gameboard];
+    newBoard[currAttempt.attempt][currAttempt.letterPos - 1] = "";
+    setGameboard(newBoard);
+    setCurrAttempt({ ...currAttempt, letterPos: currAttempt.letterPos - 1 });
+  };
+
+  const onEnter = () => {
+    if (currAttempt.letterPos !== 5) return;
+    setCurrAttempt({ attempt: currAttempt.attempt + 1, letterPos: 0 });
+  };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handleKeyDown = useCallback((e) => {
+    if (e.key === "Enter") {
+      onEnter();
+    } else if (e.key === "Backspace") {
+      onDelete();
+    } else {
+      keyboard.forEach((row) =>
+        row.forEach((key) => {
+          if (e.key === key) {
+            onSelectLetter(e.key);
+          }
+        })
+      );
+    }
+  });
 
   useEffect(() => {
-    function handleKeyDown(e) {
-      console.log(e.key);
-      setLetters(letters => [...letters, e.key]);
-    }
-
     document.addEventListener("keydown", handleKeyDown);
 
     return function cleanup() {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, []);
+  }, [handleKeyDown]);
 
   return (
     <div>
       <h1>Wordle-clone</h1>
-      <Gameboard letters={letters}></Gameboard>
-      <Keyboard></Keyboard>
+      <AppContext.Provider
+        value={{
+          gameboard,
+          setGameboard,
+          currAttempt,
+          setCurrAttempt,
+          onSelectLetter,
+          onDelete,
+          onEnter,
+        }}
+      >
+        <Gameboard></Gameboard>
+        <Keyboard></Keyboard>
+      </AppContext.Provider>
     </div>
   );
 }

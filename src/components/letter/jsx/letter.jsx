@@ -1,6 +1,7 @@
 import { PropTypes } from "prop-types";
 import { useContext } from "react";
 import { AppContext } from "../../../App";
+import "../css/letter.css";
 
 Letter.propTypes = {
   guessNum: PropTypes.number.isRequired,
@@ -8,10 +9,24 @@ Letter.propTypes = {
 };
 
 function Letter({ guessNum, letterPos }) {
-  const { gameboard } = useContext(AppContext);
+  const { gameboard, correctWord, currAttempt } = useContext(AppContext);
   const letter = gameboard[guessNum][letterPos];
 
-  return <div className="square">{letter}</div>;
+  const correct = correctWord[letterPos] === letter;
+  const almost = !correct && letter !== "" && correctWord.includes(letter);
+
+  const letterState =
+    (currAttempt.attempt > guessNum) ? (correct
+      ? "correct"
+      : almost
+      ? "almost"
+      : "incorrect") : "regular";
+
+  return (
+    <div className="square" id={letterState}>
+      {letter}
+    </div>
+  );
 }
 
 export default Letter;

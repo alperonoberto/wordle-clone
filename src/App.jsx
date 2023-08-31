@@ -12,6 +12,8 @@ function App() {
   const [gameboard, setGameboard] = useState(gameboard_state);
   const [currAttempt, setCurrAttempt] = useState({ attempt: 0, letterPos: 0 });
 
+  const correctWord = "porra";
+
   const onSelectLetter = (keyVal) => {
     if (currAttempt.letterPos > 4) return;
     const newBoard = [...gameboard];
@@ -42,7 +44,7 @@ function App() {
     } else {
       keyboard.forEach((row) =>
         row.forEach((key) => {
-          if (e.key === key) {
+          if (e.key.toLowerCase() === key.toLowerCase()) {
             onSelectLetter(e.key);
           }
         })
@@ -70,6 +72,7 @@ function App() {
           onSelectLetter,
           onDelete,
           onEnter,
+          correctWord
         }}
       >
         <Gameboard></Gameboard>

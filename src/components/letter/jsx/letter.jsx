@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { PropTypes } from "prop-types";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AppContext } from "../../../App";
 import "../css/letter.css";
 
@@ -9,7 +10,7 @@ Letter.propTypes = {
 };
 
 function Letter({ guessNum, letterPos }) {
-  const { gameboard, correctWord, currAttempt } = useContext(AppContext);
+  const { gameboard, correctWord, currAttempt, setDisabledLetters } = useContext(AppContext);
   const letter = gameboard[guessNum][letterPos];
 
   const correct = correctWord[letterPos] === letter;
@@ -21,6 +22,12 @@ function Letter({ guessNum, letterPos }) {
       : almost
       ? "almost"
       : "incorrect") : "regular";
+
+      useEffect(() => {
+        if(letter !== "" && !correct && !almost) {
+          setDisabledLetters(prev => [...prev, letter])
+        }
+      }, [currAttempt.attempt]);
 
   return (
     <div className="square" id={letterState}>

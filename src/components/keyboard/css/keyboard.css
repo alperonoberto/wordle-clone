@@ -29,11 +29,16 @@
 }
 
 .letter:active {
-    background-color: #a3a6ad;
+    background-color: #787a80;
     transition: background-color .1s ease-in-out;
 }
 
 .keyboard .row:last-child .letter:first-child,
 .keyboard .row:last-child .letter:last-child {
   flex-grow: 1;
+}
+
+#disabled {
+  background-color: #82869b;
+  color: white;
 }

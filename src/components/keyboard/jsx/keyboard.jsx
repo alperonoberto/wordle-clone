@@ -1,8 +1,11 @@
 import "../css/keyboard.css";
 import { keyboard } from "../../../constants/qwerty"
 import Key from "../../key/jsx/key";
+import { useContext } from "react";
+import { AppContext } from "../../../App";
 
 function Keyboard() {
+  const { disabledLetters } = useContext(AppContext)
 
   return (
       <div className="keyboard">
@@ -13,7 +16,7 @@ function Keyboard() {
                 {
                   row.map((key, j) => {
                     return(
-                      <Key keyVal={key} key={j}></Key>
+                      <Key keyVal={key} key={j} disabled={disabledLetters.includes(key)}></Key>
                     )
                   })
                 }

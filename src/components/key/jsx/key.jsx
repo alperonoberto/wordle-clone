@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { PropTypes } from "prop-types";
 import "../../keyboard/css/keyboard.css";
 import { useContext } from "react";
@@ -7,7 +8,7 @@ Key.propTypes = {
   keyVal: PropTypes.string.isRequired,
 };
 
-function Key({ keyVal }) {
+function Key({ keyVal, disabled }) {
   const { onSelectLetter, onDelete, onEnter } = useContext(AppContext);
 
   const selectLetter = () => {
@@ -21,7 +22,7 @@ function Key({ keyVal }) {
   };
 
   return (
-    <div className="letter" onClick={selectLetter}>
+    <div className="letter" id={disabled ? "disabled" : ""} onClick={selectLetter}>
       {keyVal != "delete" ? (
         keyVal
       ) : (

@@ -23,6 +23,7 @@ function App() {
     selectWord().then((words) => {
       setWordSet(words.wordSet);
       setCorrectWord(words.wordToGuess);
+      console.log(correctWord);
     });
   }, [correctWord]);
 

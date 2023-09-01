@@ -4,8 +4,8 @@ This project was scaffolded with Vite and made with React as a way of practicing
 
 ## 📸 Screenshots
 
-![Playing demo](screenshot1.png, "Playing demo")
-![Win screen](screenshot2.png, "Win screen")
+![Playing demo](screenshot1.png?raw=true, "Playing demo")
+![Win screen](screenshot2.png?raw=true, "Win screen")
 
 ## 🚧 Run the project
 

@@ -1,8 +1,15 @@
-# React + Vite
+# 💥 Wordle-clone
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project was scaffolded with Vite and made with React as a way of practicing the framework.
 
-Currently, two official plugins are available:
+## 📸 Screenshots
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![Playing demo](screenshot1.png, "Playing demo")
+![Win screen](screenshot2.png, "Win screen")
+
+## 🚧 Run the project
+
+| Command     | Description                     |
+|-------------|---------------------------------|
+| npm run dev | set a local development server. |
+| npm build   | build the project.              |
